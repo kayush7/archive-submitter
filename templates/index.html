@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archive Submitter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Public+Sans:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">&nbsp;</span>
+      <div>
+        <h1>Website Archive Submitter</h1>
+        <p class="subtitle">A card catalog for the web pages you want to keep</p>
+      </div>
+    </div>
+    <div class="queue-pill" id="queuePill">queue: --</div>
+  </div>
+</header>
+
+<main>
+  <p class="intro">Add a site and we list its public pages, send each one to the Wayback Machine and Archive.today, and file every attempt on its card.</p>
+  <section class="panel add-domain">
+    <form id="addDomainForm">
+      <input type="text" id="domainInput" placeholder="Domain to catalog, e.g. example.com" required>
+      <button type="submit">Add to catalog</button>
+    </form>
+  </section>
+
+  <section class="panel search-panel">
+    <div class="panel-title">
+      <h2>Search the catalog</h2>
+    </div>
+    <div class="search-row">
+      <input type="text" id="searchQ" placeholder="search by domain or url...">
+      <select id="searchStatus">
+        <option value="">any status</option>
+        <option value="success">success</option>
+        <option value="failed">failed</option>
+        <option value="pending">pending</option>
+      </select>
+      <select id="searchService">
+        <option value="">any service</option>
+        <option value="wayback">Wayback Machine</option>
+        <option value="archive_today">Archive.today</option>
+      </select>
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="searchResults" class="search-results"></div>
+  </section>
+
+  <section id="domainsSection">
+    <div class="section-head">
+      <h2>Drawer</h2>
+    </div>
+    <div id="domainsList" class="domains-list"></div>
+  </section>
+</main>
+
+<!-- URL browser modal -->
+<div class="modal-backdrop" id="urlModalBackdrop">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="urlModalTitle">URLs</h3>
+      <button class="icon-btn" id="urlModalClose">✕</button>
+    </div>
+    <div class="modal-filters">
+      <select id="filterSource">
+        <option value="">all sources</option>
+        <option value="html_link">html link</option>
+        <option value="sitemap">sitemap</option>
+        <option value="robots_txt">robots.txt</option>
+        <option value="canonical">canonical</option>
+        <option value="feed">feed</option>
+        <option value="pagination">pagination</option>
+      </select>
+      <select id="filterAccessible">
+        <option value="">accessible + broken</option>
+        <option value="1">accessible only</option>
+        <option value="0">broken only</option>
+      </select>
+      <div class="spacer"></div>
+      <a id="exportCsvLink" href="#" class="ghost-btn">⬇ CSV</a>
+      <a id="exportJsonLink" href="#" class="ghost-btn">⬇ JSON</a>
+    </div>
+    <div class="modal-body" id="urlModalBody"></div>
+    <div class="modal-foot">
+      <button id="urlPrevPage" class="ghost-btn">← prev</button>
+      <span id="urlPageLabel">page 1</span>
+      <button id="urlNextPage" class="ghost-btn">next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- URL history / submission detail modal -->
+<div class="modal-backdrop" id="historyModalBackdrop">
+  <div class="modal modal-narrow">
+    <div class="modal-head">
+      <h3>Submission history</h3>
+      <button class="icon-btn" id="historyModalClose">✕</button>
+    </div>
+    <div class="modal-body" id="historyModalBody"></div>
+  </div>
+</div>
+
+<!-- scan history modal -->
+<div class="modal-backdrop" id="scansModalBackdrop">
+  <div class="modal modal-narrow">
+    <div class="modal-head">
+      <h3>Scan history</h3>
+      <button class="icon-btn" id="scansModalClose">✕</button>
+    </div>
+    <div class="modal-body" id="scansModalBody"></div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

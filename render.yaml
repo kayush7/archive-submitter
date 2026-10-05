@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: archive-submitter
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --workers 1 --threads 8 --timeout 120
